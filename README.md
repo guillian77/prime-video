@@ -14,8 +14,8 @@ Supprime les pré-rolls et mid-rolls (films + séries) côté application, sans 
 
 | Fichier | Usage |
 |---|---|
-| `prime-video-6.23.23-patched.apk` | Installation en remplacement de l'app d'origine (même package) |
-| `prime-video-6.23.23-patched-clone.apk` | Installation **côte à côte** (package `.mod`), si l'app d'origine est un système non désinstallable |
+| `dist/prime-video-6.23.23-patched.apk` | Installation en remplacement de l'app d'origine (même package) |
+| `dist/prime-video-6.23.23-patched-clone.apk` | Installation **côte à côte** (package `.mod`), si l'app d'origine est un système non désinstallable |
 | `SHA256SUMS` | Empreintes de vérification |
 | `RAPPORT-SECURITE.md` | Audit statique complet (signature, manifeste, dex, lib native, réseau) |
 
@@ -31,7 +31,7 @@ développeur, puis **Débogage réseau** (même réseau que le PC).
 
 ```bash
 adb connect 192.168.1.xx:5555
-adb install -r prime-video-6.23.23-patched.apk
+adb install -r dist/prime-video-6.23.23-patched.apk
 ```
 
 Si l'app d'origine est un système non désinstallable :
@@ -41,7 +41,7 @@ Si l'app d'origine est un système non désinstallable :
 adb shell pm uninstall --user 0 com.amazon.amazonvideo.livingroom
 
 # ou, sans toucher au système, installer la variante clone
-adb install prime-video-6.23.23-patched-clone.apk
+adb install dist/prime-video-6.23.23-patched-clone.apk
 ```
 
 ### Option B — Downloader (sans PC)
@@ -65,7 +65,7 @@ et installer via un gestionnaire de fichiers avec « sources inconnues » autori
 ## Vérification d'intégrité
 
 ```bash
-sha256sum -c SHA256SUMS
+cd dist && sha256sum -c ../SHA256SUMS
 ```
 
 ## Sécurité — résumé de l'audit

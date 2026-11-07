@@ -1,0 +1,33 @@
+name: Release APK
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vérifier les empreintes
+        run: |
+          cd dist
+          sha256sum -c ../SHA256SUMS
+
+      - name: Publier la release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Prime Video (Android TV) 6.23.23 — sans publicité"
+          body_path: RELEASE_NOTES.md
+          files: |
+            dist/prime-video-6.23.23-patched.apk
+            dist/prime-video-6.23.23-patched-clone.apk
+            SHA256SUMS
+            RAPPORT-SECURITE.md
+          fail_on_unmatched_files: true
